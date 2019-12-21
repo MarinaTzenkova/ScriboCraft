@@ -1,24 +1,31 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+
+import { BrowserRouter as Router, Route } from "react-router-dom";
+import * as ROUTES from "./constants/routes";
+
+import SignUpPage from "./account";
+import Navigation from "./navigation";
+import WriteStory from "./write-story";
+import Stories from "./stories";
+import SectionAdd from "./add-section";
+
+var loggedIn = false;
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      {loggedIn ? (
+        <Router>
+          <Navigation />
+
+          <Route exact path={ROUTES.WRITE_STORY} component={WriteStory} />
+          <Route path={ROUTES.STORIES} component={Stories} />
+          <Route path={ROUTES.ADD_SECTION} component={SectionAdd} />
+        </Router>
+      ) : (
+        <div></div>
+      )}
+      <SignUpPage />
     </div>
   );
 }
