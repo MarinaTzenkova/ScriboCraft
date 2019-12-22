@@ -1,31 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
 
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import * as ROUTES from "./constants/routes";
 
-import SignUpPage from "./account";
+import SignUpPage from "./signup";
+import SignInPage from "./signin";
 import Navigation from "./navigation";
-import WriteStory from "./write-story";
-import Stories from "./stories";
-import SectionAdd from "./add-section";
-
-var loggedIn = false;
 
 function App() {
+  const isLoggedIn = true;
   return (
     <div>
-      {loggedIn ? (
-        <Router>
-          <Navigation />
-
-          <Route exact path={ROUTES.WRITE_STORY} component={WriteStory} />
-          <Route path={ROUTES.STORIES} component={Stories} />
-          <Route path={ROUTES.ADD_SECTION} component={SectionAdd} />
-        </Router>
-      ) : (
-        <div></div>
-      )}
-      <SignUpPage />
+      <Router>
+        {isLoggedIn ? <Navigation /> : <div></div>}
+        <Route exact path={ROUTES.SIGN_UP} component={SignUpPage} />
+        <Route exact path={ROUTES.SIGN_IN} component={SignInPage} />
+      </Router>
     </div>
   );
 }

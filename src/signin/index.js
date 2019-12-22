@@ -1,22 +1,25 @@
 import React, { Component } from "react";
-import { FirebaseContext } from '../firebase';
+import { Link, withRouter } from "react-router-dom";
 
-const SignUpPage = () => (
-  <div>
-    <FirebaseContext.Consumer>
-      {firebase => <SignUpForm firebase={firebase} />}
-    </FirebaseContext.Consumer>
-  </div>
-);
-const INITIAL_STATE = {
+import { withFirebase } from "../firebase";
+import * as ROUTES from "../constants/routes";
+
+const initialState = {
   email: "",
   password: ""
 };
 
-class SignUpForm extends Component {
+const SignInPage = () => (
+  <div>
+    <SignInForm />
+  </div>
+);
+
+class SignInFormBase extends Component {
   constructor(props) {
     super(props);
-    this.state = { ...INITIAL_STATE };
+
+    this.state = { ...initialState };
   }
 
   onChange = event => {
@@ -26,12 +29,9 @@ class SignUpForm extends Component {
   onSubmit = event => {
     const { email, password } = this.state;
     this.props.firebase
-      .doCreateUserWithEmailAndPassword(email, password)
-      .then(authUser => {
-        console.log(authUser);
-      })
-      .catch(error => {
-        console.log(error);
+      .doSignInWithEmailAndPassword(email, password)
+      .then(response => {
+        this.props.history.push(ROUTES.WRITE_STORY);
       });
     event.preventDefault();
   };
@@ -46,7 +46,7 @@ class SignUpForm extends Component {
           className="mt-48 w-1/3 bg-white shadow-md rounded px-8 py-8 pt-8"
         >
           <div className="px-4 pb-4">
-            <span className="font-bold text-xl">Create your account</span>
+            <span className="font-bold text-xl">Log in into your account</span>
             <label
               htmlFor="email"
               className="mt-2 text-sm block font-bold  pb-2"
@@ -58,7 +58,7 @@ class SignUpForm extends Component {
               name="email"
               onChange={e => this.onChange(e)}
               value={email}
-              id="name"
+              id="email"
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline border-blue-300 "
               placeholder="Johnbull@example.com"
             />
@@ -86,12 +86,20 @@ class SignUpForm extends Component {
               Sign In
             </button>
           </div>
+          <SignInLink />
         </form>
       </div>
     );
   }
 }
 
-export default SignUpPage;
+const SignInLink = () => (
+  <p>
+    Don't have an account? <Link to={ROUTES.SIGN_UP}>Sign Up</Link>
+  </p>
+);
 
-export { SignUpForm };
+const SignInForm = withRouter(withFirebase(SignInFormBase));
+
+export default SignInPage;
+export { SignInForm, SignInLink };
