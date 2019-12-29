@@ -1,6 +1,7 @@
 import app from "firebase/app";
 import "firebase/auth";
 import "firebase/database";
+import "firebase/storage";
 
 var config = {
   apiKey: "AIzaSyAOpkQWeZiYh9gJFrc1FnlR4ZL2aWDCyxo",
@@ -19,6 +20,7 @@ class Firebase {
 
     this.auth = app.auth();
     this.db = app.database();
+    this.storage = app.storage();
   }
 
   doCreateUserWithEmailAndPassword = (email, password) =>
@@ -37,6 +39,8 @@ class Firebase {
   users = () => this.db.ref("users");
 
   sections = () => this.db.ref("sections");
+
+  stories = uid => this.storage.ref(`stories/${uid}/`);
 }
 
 export default Firebase;
