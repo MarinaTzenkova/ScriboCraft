@@ -1,16 +1,17 @@
 import React from "react";
 
-import { withAuthtentication } from "./session";
+import { withAuthtentication } from "src/shared/session";
 
 import { BrowserRouter as Router, Route } from "react-router-dom";
-import * as ROUTES from "./constants/routes";
+import * as ROUTES from "../../constants/routes";
 
-import SignUpPage from "./signup";
-import SignInPage from "./signin";
-import Stories from "./stories";
-import WriteStory from "./write-story";
+import SignUpPage from "../signup";
+import SignInPage from "../signin";
+import Stories from "../stories";
+import Chapters from "../chapters";
+import WriteStory from "../write-story";
 
-import Navigation from "./navigation";
+import Navigation from "src/shared/navigation";
 const App = () => (
   <Router>
     <Navigation />
@@ -18,6 +19,7 @@ const App = () => (
     <Route exact path={ROUTES.SIGN_IN} component={SignInPage} />
     <Route exact path={ROUTES.WRITE_STORY} component={WriteStory} />
     <Route exact path={ROUTES.STORIES} component={Stories} />
+    <Route exact path={ROUTES.CHAPTERS} component={Chapters} />
   </Router>
 );
 

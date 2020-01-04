@@ -1,12 +1,12 @@
 import React from "react";
-import SignOutButton from "../signout";
+import SignOutButton from "src/components/signout";
 import NavComponent from "./navComponent";
 import MenuIcon from "@material-ui/icons/Menu";
-import { AuthUserContext } from "../session";
+import { AuthUserContext } from "src/shared/session";
 
 const Navigation = () => {
   const navItems = [
-    { type: "write", path: "/" },
+    { type: "write", path: "/story" },
     { type: "stories", path: "/stories" },
     { type: "add", path: "/add-section" }
   ];

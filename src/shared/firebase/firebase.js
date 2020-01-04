@@ -37,10 +37,14 @@ class Firebase {
 
   user = uid => this.db.ref(`users/${uid}`);
   users = () => this.db.ref("users");
+  story = title => this.db.ref(`stories/${title}`);
+  allStories = () => this.db.ref("stories");
 
   sections = () => this.db.ref("sections");
 
   stories = uid => this.storage.ref(`stories/${uid}/`);
+
+  images = uid => this.storage.ref(`images/${uid}/`);
 }
 
 export default Firebase;
