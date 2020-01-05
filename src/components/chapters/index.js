@@ -1,6 +1,7 @@
 import React, { Component } from "react";
-import { AuthUserContext, withAuthorization } from "src/shared/session";
-import { Link } from "react-router-dom";
+import { AuthUserContext, withAuthorization } from "../../shared/session";
+
+import ChapterBox from "./chapterBox";
 
 const INITIAL_STATE = {
   chapters: [],
@@ -19,13 +20,13 @@ class Chapters extends Component {
 
   fetchStories = () => {
     const params = new URLSearchParams(this.props.location.search);
-    console.log(params.get("story"));
     this.setState({ story: params.get("story") });
     this.props.firebase
       .user(`${this.props.firebase.auth.getUid()}/stories`)
-      .on("value", snapshot => {
-        
+      .once("value")
+      .then(snapshot => {
         const chapters = snapshot.val()[this.state.story];
+        console.log(chapters);
         this.setState({ chapters: chapters });
       });
   };
@@ -35,17 +36,33 @@ class Chapters extends Component {
       <AuthUserContext.Consumer>
         {authUser => (
           <div
-            className="pt-20"
-            style={{ display: "grid", gridTemplateColumns: "0.2fr 1fr 0.2fr" }}
+            style={{
+              display: "grid",
+              gridTemplateColumns: "0.2fr 1.5fr 0.2fr"
+            }}
           >
             <div></div>
-            <div
-              className="flex flex-row"
-              style={{ display: "grid", gridTemplateColumns: "repeat(4, 25%)" }}
-            >
-              {Object.values(this.state.chapters).map((story, s) => (
-                <ChapterBox key={s} story={story} id={s} />
-              ))}
+            <div>
+              <h1 className="text-center text-4xl mt-20 text-red-900">{`Chapters of ${this.state.story}`}</h1>
+              <div
+                className="flex flex-row mt-10"
+                style={{
+                  display: "grid",
+                  gridTemplateColumns: "repeat(4, 25%)"
+                }}
+              >
+                {this.state.chapters
+                  ? Object.values(this.state.chapters).map((story, s) =>
+                      story ? (
+                        <ChapterBox
+                          key={s}
+                          story={story}
+                          title={this.state.story}
+                        />
+                      ) : null
+                    )
+                  : null}
+              </div>
             </div>
           </div>
         )}
@@ -53,27 +70,6 @@ class Chapters extends Component {
     );
   }
 }
-
-const ChapterBox = ({ story, id }) => (
-  <div className="m-2 border rounded border-gray-300 bg-white cursor-pointer transition pb-4 flex flex-col max-w-full">
-    <Link to={"/"}>
-      <div className="flex justify-center">
-        {/* {story.image ? ( */}
-        <img
-          src="https://tagteam.sounder.fm/img/placeholder-256x256.png"
-          alt=""
-        ></img>
-        {/* ) : ( */}
-        {/* <img src={story.image} alt=""></img>
-        )} */}
-      </div>
-      <div className="flex justify-center text-lg font-semibold text-red-900">
-        {story.date}
-      </div>
-      <div className="flex justify-center">{}</div>
-    </Link>
-  </div>
-);
 
 const condition = authUser => !!authUser;
 

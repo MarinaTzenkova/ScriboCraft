@@ -39,24 +39,37 @@ class WriteStory extends Component {
 
   fetchData = () => {
     return new Promise((res, rej) => {
-      this.props.firebase
-        .user(this.props.firebase.auth.getUid())
-        .on("value", snapshot => {
-          const stories = snapshot.val().stories;
-          const latest = snapshot.val().latestChapter;
-          const latestStory = snapshot.val().latestStory;
+      const chapter = new URLSearchParams(this.props.location.search).get(
+        "chapter"
+      );
+      const story = new URLSearchParams(this.props.location.search).get(
+        "story"
+      );
+      if (!chapter) {
+        this.props.firebase
+          .user(this.props.firebase.auth.getUid())
+          .once("value")
+          .then(snapshot => {
+            const stories = snapshot.val().stories;
+            const latest = snapshot.val().latestChapter;
+            const latestStory = snapshot.val().latestStory;
 
-          if (!latest && !latestStory) return;
-          const latestChapter = stories[latestStory][latest];
+            if (!latest && !latestStory) return;
+            const latestChapter = stories[latestStory][latest];
 
-          this.setState({ title: latest });
-          res({ url: latestChapter.url });
-          // axios.get(latest.url).then(r => {
-          //   this.setState({ data: r.data });
-          //   console.log(r);
-          //   res({ url: latest.url });
-          // });
-        });
+            this.setState({ title: latest });
+            if (latestChapter) res({ url: latestChapter.url });
+          });
+      } else {
+        this.props.firebase
+          .chapter(this.props.firebase.auth.getUid(), story, chapter)
+          .once("value")
+          .then(snapshot => {
+            const story = snapshot.val();
+            this.setState({ title: story.title });
+            res({ url: story.url });
+          });
+      }
     });
   };
 
@@ -83,52 +96,63 @@ class WriteStory extends Component {
           )
           .getDownloadURL()
           .then(url => {
-            const stories = {};
-            stories[`/${this.state.title}`] = {
-              url,
-              date: new Date().toLocaleString()
-            };
-
-            this.props.firebase
-              .user(
-                `${this.props.firebase.auth.getUid()}/stories/${
-                  this.state.story
-                }/`
-              )
-              .update(stories)
-              .then(r => {
-                this.setState({ save: false });
+            this.props.firebase.db
+              .ref()
+              .child("/users/" + this.props.firebase.auth.getUid())
+              .update({
+                latestChapter: this.state.title,
+                latestStory: this.state.story
+              })
+              .then(() => {
+                const stories = {};
+                stories[`/${this.state.title}`] = {
+                  url,
+                  date: new Date().toLocaleString(),
+                  title: this.state.title
+                };
                 this.props.firebase
-                  .user(`${this.props.firebase.auth.getUid()}`)
-                  .update({
-                    latestChapter: this.state.title,
-                    latestStory: this.state.story
+                  .user(
+                    `${this.props.firebase.auth.getUid()}/stories/${
+                      this.state.story
+                    }/`
+                  )
+                  .update(stories)
+                  .then(r => {
+                    this.setState({ save: false });
                   });
-              });
+              })
+              .catch(error => console.log(error));
           });
       })
       .catch(error => console.log(error));
 
-    const imageMetadata = {
-      contentType: this.state.image.type
-    };
-    this.props.firebase
-      .images(
-        `${this.props.firebase.auth.getUid()}/${+new Date()}-${
-          this.state.story
-        }`
-      )
-      .put(this.state.image, imageMetadata)
-      .then(snapshot => {
-        snapshot.ref.getDownloadURL().then(url => {
-          this.props.firebase
-            .story(this.state.story)
-            .update({
-              image: url
+    const image = this.state.image;
+    if (image) {
+      const imageMetadata = {
+        contentType: image.type
+      };
+      this.props.firebase
+        .images(
+          `${this.props.firebase.auth.getUid()}/${+new Date()}-${
+            this.state.story
+          }`
+        )
+        .put(image, imageMetadata)
+        .then(snapshot => {
+          snapshot.ref.getDownloadURL().then(url => {
+            this.props.firebase.story(this.state.story).update({
+              image: url,
+              title: this.state.story
             });
-        });
-      })
-      .catch(error => console.log(error));
+          });
+        })
+        .catch(error => console.log(error));
+    } else {
+      this.props.firebase.story(this.state.story).update({
+        image: "",
+        title: this.state.story
+      });
+    }
   };
 
   loadStory = url => {
@@ -151,13 +175,6 @@ class WriteStory extends Component {
   };
 
   storeImage = value => {
-    // console.log(value.target.files);
-    // const metadata = {
-    //   contentType: "image/jpeg"
-    // };
-    // var blob = new Blob([JSON.stringify(value.target.files[0])], {
-    //   type: "image/jpeg"
-    // });
     this.setState({ image: value.target.files[0] });
   };
   render() {

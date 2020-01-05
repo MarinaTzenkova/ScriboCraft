@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Link, withRouter } from "react-router-dom";
 
-import { withFirebase } from "src/shared/firebase"
+import { withFirebase } from "../../shared/firebase"
 import * as ROUTES from "../../constants/routes";
 
 const initialState = {

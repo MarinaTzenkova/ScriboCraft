@@ -1,5 +1,5 @@
 import React from "react";
-import { withFirebase } from "src/shared/firebase";
+import { withFirebase } from "../../shared/firebase";
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 
 const SignOutButton = ({ firebase }) => (

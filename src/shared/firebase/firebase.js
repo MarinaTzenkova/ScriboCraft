@@ -37,12 +37,20 @@ class Firebase {
 
   user = uid => this.db.ref(`users/${uid}`);
   users = () => this.db.ref("users");
+
   story = title => this.db.ref(`stories/${title}`);
   allStories = () => this.db.ref("stories");
+
+  userStory = (uid, title) => this.db.ref(`users/${uid}/stories/${title}`);
+  chapters = (uid, story) => this.db.ref(`users/${uid}/stories/${story}/`);
+  chapter = (uid, story, title) =>
+    this.db.ref(`users/${uid}/stories/${story}/${title}`);
 
   sections = () => this.db.ref("sections");
 
   stories = uid => this.storage.ref(`stories/${uid}/`);
+
+  chapterFiles = (uid, title) => this.storage.ref(`stories/${uid}/${title}/`);
 
   images = uid => this.storage.ref(`images/${uid}/`);
 }
