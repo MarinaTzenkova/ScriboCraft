@@ -1,0 +1,12 @@
+.parent {
+  width: 50%;
+}
+
+.child {
+  width: 100%;
+}
+
+.parent:hover .child,
+.parent:focus .child {
+  transform: scale(1.7);
+}
