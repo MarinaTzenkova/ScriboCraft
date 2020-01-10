@@ -15,6 +15,7 @@ import Home from "../home";
 
 import Navigation from "src/shared/components/navigation";
 import Header from "src/shared/components/header";
+import Characters from "../writing/characters";
 
 const INITIAL_STATE = {
   navigationItems: [
@@ -22,10 +23,11 @@ const INITIAL_STATE = {
       type: "write",
       path: "/story"
     },
-    { type: "stories", path: "/stories" },
-    { type: "add", path: "/add-section" }
+    { type: "stories", path: "/stories" }
   ]
 };
+
+const addSection = { type: "add", path: "/add-section" };
 
 class App extends Component {
   constructor(props) {
@@ -48,6 +50,11 @@ class App extends Component {
             navigationItems: [...prevState.navigationItems, navItems]
           }));
         }
+      })
+      .finally(() => {
+        this.setState(prevState => ({
+          navigationItems: [...prevState.navigationItems, addSection]
+        }));
       });
   }
 
@@ -62,6 +69,7 @@ class App extends Component {
             <Route exact path={ROUTES.WRITE_STORY} component={WriteStory} />
             <Route exact path={ROUTES.STORIES} component={Stories} />
             <Route exact path={ROUTES.CHAPTERS} component={Chapters} />
+            <Route exact path={ROUTES.CHARACTERS} component={Characters} />
             <Route exact path={ROUTES.ADD_SECTION} component={AddSection} />
           </Header>
         </Navigation>

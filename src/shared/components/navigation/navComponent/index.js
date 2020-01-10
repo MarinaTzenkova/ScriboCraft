@@ -12,14 +12,23 @@ const NavComponent = props => {
         {props.navigation.type === "write" ? (
           <DescriptionIcon
             style={{ fontSize: "2rem" }}
-            className="text-red-800"
+            className="text-red-800 hover:text-red-900"
           />
         ) : props.navigation.type === "stories" ? (
-          <FolderIcon style={{ fontSize: "2rem" }} className="text-red-800" />
+          <FolderIcon
+            style={{ fontSize: "2rem" }}
+            className="text-red-800 hover:text-red-900"
+          />
         ) : props.navigation.type === "add" ? (
-          <AddIcon style={{ fontSize: "2rem" }} className="text-red-800" />
+          <AddIcon
+            style={{ fontSize: "2rem" }}
+            className="text-red-800 hover:text-red-900"
+          />
         ) : (
-          <Icon style={{ fontSize: "2rem" }} className="text-red-800">
+          <Icon
+            style={{ fontSize: "2rem" }}
+            className="text-red-800 hover:text-red-900"
+          >
             {props.navigation.icon}
           </Icon>
         )

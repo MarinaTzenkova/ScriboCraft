@@ -14,7 +14,7 @@ const Editor = ({ title, value, saveStory, setTitle, setValue }) => {
       />
       <div
         style={{ height: "500px" }}
-        className="border border-gray-500 rounded-lg p-5 mt-5 overflow-hidden"
+        className="border border-gray-500 rounded-lg p-5 mt-5 overflow-auto"
       >
         <Slate
           editor={editor}

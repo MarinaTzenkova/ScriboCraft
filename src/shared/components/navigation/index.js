@@ -2,6 +2,7 @@ import React from "react";
 import NavComponent from "./navComponent";
 import { AuthUserContext } from "src/shared/utils/session";
 import logo from "./logo_transparent.png";
+import { Link } from "react-router-dom";
 
 const Navigation = ({ children, navigationItems }) => {
   return (
@@ -20,7 +21,9 @@ const Navigation = ({ children, navigationItems }) => {
                 className="w-24 bg-gray-300"
               >
                 <div className="flex justify-center mb-10">
-                  <img src={logo} className="w-20" alt="" />
+                  <Link to="/">
+                    <img src={logo} className="w-20" alt="" />
+                  </Link>
                 </div>
                 <div
                   style={{
