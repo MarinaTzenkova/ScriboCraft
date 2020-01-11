@@ -32,7 +32,6 @@ const NavComponent = props => {
             {props.navigation.icon}
           </Icon>
         )
-        // null
         }
       </Link>
     </div>
