@@ -40,7 +40,7 @@ class SignInFormBase extends Component {
     const { email, password } = this.state;
     const isInvalid = password === "" || email === "";
     return (
-      <div className="flex justify-center">
+      <div className="flex justify-center mt-32 ">
         <form
           onSubmit={this.onSubmit}
           className="mt-10 w-1/3 bg-white shadow-md rounded px-8 py-8 pt-8"

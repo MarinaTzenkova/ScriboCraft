@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import DescriptionIcon from "@material-ui/icons/Description";
 import FolderIcon from "@material-ui/icons/Folder";
 import AddIcon from "@material-ui/icons/Add";
@@ -31,8 +31,7 @@ const NavComponent = props => {
           >
             {props.navigation.icon}
           </Icon>
-        )
-        }
+        )}
       </Link>
     </div>
   );

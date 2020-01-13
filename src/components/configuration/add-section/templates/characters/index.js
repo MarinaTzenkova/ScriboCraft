@@ -3,6 +3,7 @@ import React from "react";
 import templateOne from "./template-1.png";
 import templateTwo from "./template-2.png";
 import "./styles.css";
+import { AuthUserContext, withAuthorization } from "src/shared/utils/session";
 
 const CharacterTemplate = ({ selectedTemplate }) => {
   return (

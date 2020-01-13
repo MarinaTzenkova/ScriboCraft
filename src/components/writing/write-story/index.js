@@ -140,18 +140,22 @@ class WriteStory extends Component {
         .put(image, imageMetadata)
         .then(snapshot => {
           snapshot.ref.getDownloadURL().then(url => {
-            this.props.firebase.story(this.state.story).update({
-              image: url,
-              title: this.state.story
-            });
+            this.props.firebase
+              .story(this.props.firebase.auth.getUid(), this.state.story)
+              .update({
+                image: url,
+                title: this.state.story
+              });
           });
         })
         .catch(error => console.log(error));
     } else {
-      this.props.firebase.story(this.state.story).update({
-        image: "",
-        title: this.state.story
-      });
+      this.props.firebase
+        .story(this.props.firebase.auth.getUid(), this.state.story)
+        .update({
+          image: "",
+          title: this.state.story
+        });
     }
   };
 

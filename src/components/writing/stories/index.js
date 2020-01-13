@@ -20,12 +20,14 @@ class Stories extends Component {
   }
 
   fetchStories = () => {
-    this.props.firebase.allStories().once("value", snapshot => {
-      if (this._isMounted) {
-        const stories = snapshot.val();
-        this.setState({ stories: Object.values(stories) });
-      }
-    });
+    this.props.firebase
+      .allStories(this.props.firebase.auth.getUid())
+      .once("value", snapshot => {
+        if (this._isMounted) {
+          const stories = snapshot.val();
+          if (stories) this.setState({ stories: Object.values(stories) });
+        }
+      });
   };
 
   editStoryName = (name, id) => {
@@ -53,7 +55,7 @@ class Stories extends Component {
             .remove()
             .then(() => {
               this.props.firebase
-                .story(name)
+                .story(this.props.firebase.auth.getUid(), name)
                 .remove()
                 .then(() => {
                   this.props.firebase

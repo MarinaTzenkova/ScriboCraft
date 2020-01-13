@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { AuthUserContext, withAuthorization } from "src/shared/utils/session";
 import Modal from "src/shared/components/modal";
+import CharacterTemplate from "./templates/characters";
 
 const cases = {
   characters: "CharacterTemplate"
@@ -20,21 +21,21 @@ class AddSection extends Component {
     this.state = { ...INITIAL_STATE };
   }
 
+  // do not work on deployed version, need to look further
   openSelection = value => {
-    switch (value) {
-      case "characters":
-        import(`./templates/${value}`)
-          .then(component => {
-            this.setState({
-              components: this.state.components.concat(component.default)
-            });
-            this.setState({ template: cases.characters });
-          })
-          .catch(error => {
-            console.error(`"${value}" not yet supported`);
-          });
-    }
-    this.setState({ modal: true });
+    console.log(value);
+    import(/* webpackMode: "eager" */ `./templates/${value}`)
+      .then(component => {
+        console.log(component);
+        this.setState({
+          components: this.state.components.concat(component.default)
+        });
+        this.setState({ template: cases.characters });
+        this.setState({ modal: true });
+      })
+      .catch(error => {
+        console.error(`"${value}" not yet supported`);
+      });
   };
 
   componentToRender = () => {
@@ -128,7 +129,9 @@ class AddSection extends Component {
               handleSave={() => this.saveTemplate()}
               handleClose={() => this.setState({ modal: false })}
             >
-              {this.componentToRender()}
+              <CharacterTemplate
+                selectedTemplate={value => this.selectTemplate(value)}
+              />
             </Modal>
           </div>
         )}

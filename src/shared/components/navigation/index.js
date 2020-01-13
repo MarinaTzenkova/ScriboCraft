@@ -3,6 +3,7 @@ import NavComponent from "./navComponent";
 import { AuthUserContext } from "src/shared/utils/session";
 import logo from "./logo_transparent.png";
 import { Link } from "react-router-dom";
+import SignOutButton from "src/components/authentication/signout";
 
 const Navigation = ({ children, navigationItems }) => {
   return (
@@ -36,11 +37,12 @@ const Navigation = ({ children, navigationItems }) => {
                     nav ? <NavComponent key={i} navigation={nav} /> : null
                   )}
                 </div>
+                <SignOutButton />
               </div>
               <div>{children}</div>
             </div>
           ) : (
-            <div />
+            <div>{children}</div>
           )
         }
       </AuthUserContext.Consumer>
