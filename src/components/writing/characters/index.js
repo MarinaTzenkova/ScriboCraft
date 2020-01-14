@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Icon } from "@material-ui/core";
+import { withAuthorization } from "src/shared/utils/session";
 
 const INITIAL_STATE = {
   characters: [
@@ -15,6 +16,12 @@ class Characters extends Component {
     this.state = { ...INITIAL_STATE };
   }
 
+  addCharacterBox = () => {
+    this.setState(prevState => ({
+      characters: [...prevState.characters, { name: "test" }]
+    }));
+  };
+
   render() {
     return (
       <div>
@@ -25,7 +32,8 @@ class Characters extends Component {
           className="mt-10"
           style={{
             display: "grid",
-            gridTemplateColumns: "repeat(4, 25%)"
+            gridTemplateColumns: "repeat(4, 25%)",
+            gridRowGap: "2rem"
           }}
         >
           {this.state.characters.map((character, c) => (
@@ -34,12 +42,9 @@ class Characters extends Component {
           <div
             className="border rounded border-red-900 cursor-pointer bg-gray-200 items-center flex justify-center hover:bg-gray-400"
             style={{ height: "300px", width: "250px" }}
+            onClick={() => this.addCharacterBox()}
           >
-            <Icon
-              className="text-red-900"
-              style={{ fontSize: "4rem" }}
-              onClick={() => this.setState({ modal: true })}
-            >
+            <Icon className="text-red-900" style={{ fontSize: "4rem" }}>
               add
             </Icon>
           </div>
@@ -66,4 +71,6 @@ const CharacterBox = () => {
   );
 };
 
-export default Characters;
+const condition = authUser => !!authUser;
+
+export default withAuthorization(condition)(Characters);

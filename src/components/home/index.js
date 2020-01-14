@@ -34,11 +34,11 @@ const Home = () => (
                 style={{ fontSize: "2rem" }}
                 className="text-red-800 hover:text-red-900"
               />
-              <div className="ml-2 flex items-center">
+              <div className="ml-2 flex flex-wrap items-center">
                 Clicking this icon will open the saved story folders. You can
-                modify the story name by clicking the <Edit className="mx-2" />{" "}
+                modify the story name by clicking the <Edit className="mx-1" />{" "}
                 icon. You can also delete a story, by clicking the{" "}
-                <Delete className="mx-2" /> icon.
+                <Delete className="mx-1" /> icon.
               </div>
             </div>
             <div className="flex flex-row mt-4">
@@ -46,7 +46,7 @@ const Home = () => (
                 style={{ fontSize: "2rem" }}
                 className="text-red-800 hover:text-red-900"
               />
-              <div className="ml-2 flex items-center">
+              <div className="ml-2 flex flex-wrap items-center">
                 Clicking this icon will open the section add page. In this page
                 you can select from multiple predefined sections to add to your
                 liking. These sections will be stored on your account and will

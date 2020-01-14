@@ -10,3 +10,10 @@
 .parent:focus .child {
   transform: scale(1.1);
 }
+
+.selected {
+  -webkit-filter:brightness(50%);
+  -moz-filter:brightness(50%);
+  filter: url(#brightness);
+  filter:brightness(50%);
+}

@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import { AuthUserContext, withAuthorization } from "src/shared/utils/session";
 import Modal from "src/shared/components/modal";
 import CharacterTemplate from "./templates/characters";
+import { Help } from "@material-ui/icons";
+import { Tooltip } from "@material-ui/core";
 
 const cases = {
   characters: "CharacterTemplate"
@@ -65,11 +67,12 @@ class AddSection extends Component {
       .update({
         icon,
         path,
+        description: "Page containing your characters.",
         template: this.state.selectedTemplate
       })
       .then(() => {
-        console.log("wee");
         this.setState({ modal: false });
+        window.location.reload();
       });
   };
 
@@ -78,10 +81,22 @@ class AddSection extends Component {
       <AuthUserContext.Consumer>
         {authUser => (
           <div>
-            <h1 className="text-center text-3xl font-light text-red-900 mb-10">
-              Select section to add on the menu bar
-            </h1>
+            <div className="flex flex-row">
+              <div className="flex flex-row w-2/12"></div>
+              <div className="flex flex-row w-8/12 justify-center text-center text-3xl font-light text-red-900">
+                Select template to add on the menu bar
+              </div>
+              <div className="flex flex-row w-2/12 justify-end">
+                <Tooltip title="Click to learn more about each customizable component in ScriboCraft">
+                  <Help
+                    style={{ fontSize: "2rem" }}
+                    className="text-red-800 cursor-pointer"
+                  />
+                </Tooltip>
+              </div>
+            </div>
             <div
+              className="mt-10"
               style={{
                 display: "grid",
                 gridTemplateColumns: "repeat(4, 25%)"
@@ -97,31 +112,31 @@ class AddSection extends Component {
               </div>
               <div
                 draggable="true"
-                className="m-2 p-5 font-light border rounded hover:bg-blue-400 bg-white cursor-pointer flex flex-col max-w-full bg-blue-200"
+                className="m-2 p-5 font-light border rounded bg-white cursor-pointer flex flex-col max-w-full bg-blue-200"
               >
                 <h1 className="text-center text-2xl">Scenes</h1>
-                <span className="text-center">(prototype version)</span>
+                <span className="text-center">(not implemented)</span>
               </div>
               <div
                 draggable="true"
-                className="m-2 p-5 font-light border rounded hover:bg-purple-400 bg-white cursor-pointer flex flex-col max-w-full bg-purple-200"
+                className="m-2 p-5 font-light border rounded  bg-white cursor-pointer flex flex-col max-w-full bg-purple-200"
               >
                 <h1 className="text-center text-2xl">Outlines</h1>
-                <span className="text-center">(prototype version)</span>
+                <span className="text-center">(not implemented)</span>
               </div>
               <div
                 draggable="true"
-                className="m-2 p-5 font-light border rounded hover:bg-green-400 bg-white cursor-pointer flex flex-col max-w-full bg-green-200"
+                className="m-2 p-5 font-light border rounded  bg-white cursor-pointer flex flex-col max-w-full bg-green-200"
               >
                 <h1 className="text-center text-2xl">Timelines</h1>
-                <span className="text-center">(prototype version)</span>
+                <span className="text-center">(not implemented)</span>
               </div>
               <div
                 draggable="true"
-                className="m-2 p-5 font-light border rounded hover:bg-teal-400 bg-white cursor-pointer flex flex-col max-w-full bg-teal-200"
+                className="m-2 p-5 font-light border rounded bg-white cursor-pointer flex flex-col max-w-full bg-teal-200"
               >
                 <h1 className="text-center text-2xl">Tags</h1>
-                <span className="text-center">(prototype version)</span>
+                <span className="text-center">(not implemented)</span>
               </div>
             </div>
             <Modal

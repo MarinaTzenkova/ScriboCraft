@@ -1,36 +1,42 @@
 import React from "react";
-import DescriptionIcon from "@material-ui/icons/Description";
-import FolderIcon from "@material-ui/icons/Folder";
-import AddIcon from "@material-ui/icons/Add";
+import { Description, Folder, Add } from "@material-ui/icons";
 import { Link } from "react-router-dom";
-import Icon from "@material-ui/core/Icon";
+import { Tooltip, Icon } from "@material-ui/core";
 
 const NavComponent = props => {
   return (
     <div className="flex justify-center">
       <Link to={props.navigation.path}>
         {props.navigation.type === "write" ? (
-          <DescriptionIcon
-            style={{ fontSize: "2rem" }}
-            className="text-red-800 hover:text-red-900"
-          />
+          <Tooltip title={props.navigation.description}>
+            <Description
+              style={{ fontSize: "2rem" }}
+              className="text-red-800 hover:text-red-900"
+            />
+          </Tooltip>
         ) : props.navigation.type === "stories" ? (
-          <FolderIcon
-            style={{ fontSize: "2rem" }}
-            className="text-red-800 hover:text-red-900"
-          />
+          <Tooltip title={props.navigation.description}>
+            <Folder
+              style={{ fontSize: "2rem" }}
+              className="text-red-800 hover:text-red-900"
+            />
+          </Tooltip>
         ) : props.navigation.type === "add" ? (
-          <AddIcon
-            style={{ fontSize: "2rem" }}
-            className="text-red-800 hover:text-red-900"
-          />
+          <Tooltip title={props.navigation.description}>
+            <Add
+              style={{ fontSize: "2rem" }}
+              className="text-red-800 hover:text-red-900"
+            />
+          </Tooltip>
         ) : (
-          <Icon
-            style={{ fontSize: "2rem" }}
-            className="text-red-800 hover:text-red-900"
-          >
-            {props.navigation.icon}
-          </Icon>
+          <Tooltip title={props.navigation.description}>
+            <Icon
+              style={{ fontSize: "2rem" }}
+              className="text-red-800 hover:text-red-900"
+            >
+              {props.navigation.icon}
+            </Icon>
+          </Tooltip>
         )}
       </Link>
     </div>

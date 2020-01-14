@@ -21,13 +21,22 @@ const INITIAL_STATE = {
   navigationItems: [
     {
       type: "write",
-      path: "/story"
+      path: "/story",
+      description: "Write story."
     },
-    { type: "stories", path: "/stories" }
+    {
+      type: "stories",
+      path: "/stories",
+      description: "Access all your stories."
+    }
   ]
 };
 
-const addSection = { type: "add", path: "/add-section" };
+const addSection = {
+  type: "add",
+  path: "/add-section",
+  description: "Add new custom page to your menu."
+};
 
 class App extends Component {
   constructor(props) {

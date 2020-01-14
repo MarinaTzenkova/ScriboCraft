@@ -6,7 +6,7 @@ import { AuthUserContext, withAuthorization } from "src/shared/utils/session";
 
 import Editor from "./editor";
 import Settings from "./settings";
-import Menu from "./menu";
+import MenuComponent from "./menu";
 
 import Modal from "src/shared/components/modal";
 
@@ -15,7 +15,7 @@ const INITIAL_STATE = {
   value: [
     {
       type: "paragraph",
-      children: [{ text: "A line of text in a paragraph." }]
+      children: [{ text: "" }]
     }
   ],
   title: "",
@@ -58,6 +58,7 @@ class WriteStory extends Component {
             const latestChapter = stories[latestStory][latest];
 
             this.setState({ title: latest });
+            this.setState({ story: latestStory });
             if (latestChapter) res({ url: latestChapter.url });
           });
       } else {
@@ -65,9 +66,10 @@ class WriteStory extends Component {
           .chapter(this.props.firebase.auth.getUid(), story, chapter)
           .once("value")
           .then(snapshot => {
-            const story = snapshot.val();
-            this.setState({ title: story.title });
-            res({ url: story.url });
+            const chapter = snapshot.val();
+            this.setState({ story });
+            this.setState({ title: chapter.title });
+            res({ url: chapter.url });
           });
       }
     });
@@ -161,8 +163,8 @@ class WriteStory extends Component {
 
   loadStory = url => {
     axios.get(url).then(r => {
-      const value = r.data[0];
-      this.setState({ value: [value] });
+      const value = r.data;
+      this.setState({ value: value });
     });
   };
 
@@ -193,7 +195,7 @@ class WriteStory extends Component {
               setTitle={value => this.setState({ title: value })}
               setValue={value => this.setState({ value })}
             />
-            <Menu
+            <MenuComponent
               hover={this.state.hover}
               mouseEnter={this.onMouseEnter}
               mouseLeave={this.onMouseLeave}

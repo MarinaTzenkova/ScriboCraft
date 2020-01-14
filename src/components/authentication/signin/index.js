@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Link, withRouter } from "react-router-dom";
 
-import { withFirebase } from "../../../shared/utils/firebase"
+import { withFirebase } from "../../../shared/utils/firebase";
 import * as ROUTES from "../../../constants/routes";
 
 const initialState = {
@@ -32,6 +32,9 @@ class SignInFormBase extends Component {
       .doSignInWithEmailAndPassword(email, password)
       .then(response => {
         this.props.history.push(ROUTES.WRITE_STORY);
+      })
+      .catch(error => {
+        console.log(error.message);
       });
     event.preventDefault();
   };

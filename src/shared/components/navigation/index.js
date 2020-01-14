@@ -5,6 +5,7 @@ import logo from "./logo_transparent.png";
 import { Link } from "react-router-dom";
 import SignOutButton from "src/components/authentication/signout";
 
+
 const Navigation = ({ children, navigationItems }) => {
   return (
     <div>
@@ -37,7 +38,9 @@ const Navigation = ({ children, navigationItems }) => {
                     nav ? <NavComponent key={i} navigation={nav} /> : null
                   )}
                 </div>
-                <SignOutButton />
+                <div className="absolute bottom-0 ml-8 flex flex-col pb-5">
+                  <SignOutButton />
+                </div>
               </div>
               <div>{children}</div>
             </div>

@@ -1,22 +1,13 @@
 import React from "react";
 
-import MenuIcon from "@material-ui/icons/Menu";
-import CloseIcon from "@material-ui/icons/Close";
-import SaveIcon from "@material-ui/icons/Save";
-import GetAppIcon from "@material-ui/icons/GetApp";
-import FolderIcon from "@material-ui/icons/Folder";
+import { Save, GetApp, Folder, FileCopy } from "@material-ui/icons";
 
 import { Tooltip } from "@material-ui/core";
 import { Link } from "react-router-dom";
 
-const Menu = ({ hover, mouseLeave, mouseEnter, setSave }) => (
+const MenuComponent = ({ hover, mouseLeave, mouseEnter, setSave }) => (
   <div className="ml-8 mt-6 cursor-pointer">
-    <div
-    // onMouseEnter={mouseEnter}
-    // onMouseLeave={mouseLeave}
-    >
-      {/* {!hover ? <MenuIcon /> : <CloseIcon />}
-      {hover ? ( */}
+    <div>
       <div
         className="mt-2"
         style={{
@@ -26,20 +17,22 @@ const Menu = ({ hover, mouseLeave, mouseEnter, setSave }) => (
         }}
       >
         <Tooltip title="Save story">
-          <SaveIcon onClick={e => setSave(true)} />
+          <Save onClick={e => setSave(true)} />
         </Tooltip>
         <Tooltip title="Export story (currently not working)">
-          <GetAppIcon />
+          <GetApp />
+        </Tooltip>
+        <Tooltip title="Duplicate story">
+          <FileCopy />
         </Tooltip>
         <Tooltip title="Go to story folder">
           <Link to={`/stories`}>
-            <FolderIcon />
+            <Folder />
           </Link>
         </Tooltip>
       </div>
-      {/* ) : null} */}
     </div>
   </div>
 );
 
-export default Menu;
+export default MenuComponent;
