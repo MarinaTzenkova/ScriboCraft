@@ -17,6 +17,7 @@
     "react-scripts": "3.3.0",
     "slate": "^0.57.1",
     "slate-react": "^0.57.1",
+    "toastr": "^2.1.4",
     "write-file-p": "^1.0.7"
   },
   "scripts": {

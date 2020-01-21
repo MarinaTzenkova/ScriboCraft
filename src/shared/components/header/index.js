@@ -15,7 +15,7 @@ const Header = ({ children }) => (
                 right: "0",
                 width: "93.7%",
                 height: "10%",
-                zIndex: "0"
+                zIndex: "-9999"
               }}
               className="bg-gray-100"
             >
@@ -30,7 +30,7 @@ const Header = ({ children }) => (
                 />
               </div>
             </div>
-            <div className="pl-64 pr-40 py-32">{children}</div>
+            <div className="pl-64 pr-40 pt-32">{children}</div>
           </div>
         ) : (
           <div>{children}</div>

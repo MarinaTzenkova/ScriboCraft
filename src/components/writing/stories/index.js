@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import { AuthUserContext, withAuthorization } from "src/shared/utils/session";
 
+import toastr from "toastr";
+import "toastr/build/toastr.min.css";
+
 import StoryBox from "./storyBox";
 
 const INITIAL_STATE = {
@@ -73,16 +76,17 @@ class Stories extends Component {
                           })
                           .then(() => {
                             this.fetchStories();
+                            toastr.success(`Successfuly deleted ${name}`);
                           });
                       }
                     });
                 })
-                .catch(error => console.log(error));
+                .catch(error => toastr.error(error.message));
             })
-            .catch(error => console.log(error));
+            .catch(error => toastr.error(error.message));
         })
         .catch(function(error) {
-          // Uh-oh, an error occurred!
+          toastr.error(error.message);
         });
     }
   };

@@ -1,8 +1,9 @@
 import React, { useMemo } from "react";
+
 import { createEditor } from "slate";
 import { Slate, Editable, withReact } from "slate-react";
 
-const Editor = ({ title, value, saveStory, setTitle, setValue }) => {
+const Editor = ({ title, value, setTitle, setValue }) => {
   const editor = useMemo(() => withReact(createEditor()), []);
   return (
     <div className="w-full">
@@ -21,7 +22,7 @@ const Editor = ({ title, value, saveStory, setTitle, setValue }) => {
           value={value}
           onChange={value => setValue(value)}
         >
-          <Editable spellCheck autoFocus />
+          <Editable spellCheck autoFocus placeholder="Begin your story here" />
         </Slate>
       </div>
     </div>

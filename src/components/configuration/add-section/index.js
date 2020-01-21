@@ -3,7 +3,9 @@ import { AuthUserContext, withAuthorization } from "src/shared/utils/session";
 import Modal from "src/shared/components/modal";
 import CharacterTemplate from "./templates/characters";
 import { Help } from "@material-ui/icons";
-import { Tooltip } from "@material-ui/core";
+import { Tooltip, Icon } from "@material-ui/core";
+import toastr from "toastr";
+import "toastr/build/toastr.min.css";
 
 const cases = {
   characters: "CharacterTemplate"
@@ -71,6 +73,7 @@ class AddSection extends Component {
         template: this.state.selectedTemplate
       })
       .then(() => {
+        toastr.success("Successfuly added section on the right");
         this.setState({ modal: false });
         window.location.reload();
       });
@@ -89,7 +92,7 @@ class AddSection extends Component {
               <div className="flex flex-row w-2/12 justify-end">
                 <Tooltip title="Click to learn more about each customizable component in ScriboCraft">
                   <Help
-                    style={{ fontSize: "2rem" }}
+                    style={{ fontSize: "2rem", display: "none" }}
                     className="text-red-800 cursor-pointer"
                   />
                 </Tooltip>
@@ -137,6 +140,33 @@ class AddSection extends Component {
               >
                 <h1 className="text-center text-2xl">Tags</h1>
                 <span className="text-center">(not implemented)</span>
+              </div>
+            </div>
+            <div className="w-full border border-gray-200 h-auto m-2 rounded mt-10 p-4">
+              <h1 className="text-red-900 text-2xl font-light text-center">
+                Template icons overview
+              </h1>
+              <div className="my-2 mb-4 border-b border-gray-500"></div>
+              <div className="flex flex-row px-2 justify-center">
+                <div className="flex items-center">
+                  <Icon style={{ fontSize: "2rem" }}>face</Icon> - Character
+                  section
+                </div>
+                <div className="flex items-center ml-2 border-l border-gray-800 pl-2">
+                  <Icon style={{ fontSize: "2rem" }}>movie</Icon> - Scenes
+                  section
+                </div>
+                <div className="flex items-center ml-2 border-l border-gray-800 pl-2">
+                  <Icon style={{ fontSize: "2rem" }}>list</Icon> - Outlines
+                  section
+                </div>
+                <div className="flex items-center ml-2 border-l border-gray-800 pl-2">
+                  <Icon style={{ fontSize: "2rem" }}>timeline</Icon> - Timelines
+                  section
+                </div>
+                <div className="flex items-center ml-2 border-l border-gray-800 pl-2">
+                  <Icon style={{ fontSize: "2rem" }}>label</Icon> - Tags section
+                </div>
               </div>
             </div>
             <Modal

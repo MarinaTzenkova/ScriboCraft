@@ -1,8 +1,11 @@
 import React, { Component } from "react";
 import { Link, withRouter } from "react-router-dom";
 
-import { withFirebase } from "../../../shared/utils/firebase";
-import * as ROUTES from "../../../constants/routes";
+import { withFirebase } from "src/shared/utils/firebase";
+import * as ROUTES from "src/constants/routes";
+
+import toastr from "toastr";
+import "toastr/build/toastr.min.css";
 
 const initialState = {
   email: "",
@@ -34,7 +37,7 @@ class SignInFormBase extends Component {
         this.props.history.push(ROUTES.WRITE_STORY);
       })
       .catch(error => {
-        console.log(error.message);
+        toastr.error(error.message);
       });
     event.preventDefault();
   };

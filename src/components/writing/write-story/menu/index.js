@@ -1,11 +1,11 @@
 import React from "react";
 
-import { Save, GetApp, Folder, FileCopy } from "@material-ui/icons";
-
-import { Tooltip } from "@material-ui/core";
 import { Link } from "react-router-dom";
 
-const MenuComponent = ({ hover, mouseLeave, mouseEnter, setSave }) => (
+import { Save, GetApp, Folder, FileCopy } from "@material-ui/icons";
+import { Tooltip } from "@material-ui/core";
+
+const MenuComponent = ({ setSave }) => (
   <div className="ml-8 mt-6 cursor-pointer">
     <div>
       <div
@@ -19,16 +19,16 @@ const MenuComponent = ({ hover, mouseLeave, mouseEnter, setSave }) => (
         <Tooltip title="Save story">
           <Save onClick={e => setSave(true)} />
         </Tooltip>
-        <Tooltip title="Export story (currently not working)">
-          <GetApp />
-        </Tooltip>
-        <Tooltip title="Duplicate story">
-          <FileCopy />
-        </Tooltip>
         <Tooltip title="Go to story folder">
           <Link to={`/stories`}>
             <Folder />
           </Link>
+        </Tooltip>
+        <Tooltip title="Duplicate story (currently not working)">
+          <FileCopy />
+        </Tooltip>
+        <Tooltip title="Export story (currently not working)">
+          <GetApp />
         </Tooltip>
       </div>
     </div>

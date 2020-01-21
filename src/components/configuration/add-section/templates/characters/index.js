@@ -12,7 +12,7 @@ const CharacterTemplate = ({ selectedTemplate }) => {
   return (
     <div className="p-10" style={{ width: "1000px" }}>
       <h1 className="text-center text-3xl font-light text-red-900 mb-10">
-        Chose between these templates for your new section <Icon>face</Icon>
+        Chose between these templates for your custom section <Icon>face</Icon>
       </h1>
       <div className="flex flex-row w-full">
         <div className="parent">

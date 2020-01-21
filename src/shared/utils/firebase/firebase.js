@@ -44,7 +44,7 @@ class Firebase {
   userStory = (uid, title) => this.db.ref(`users/${uid}/stories/${title}`);
   chapters = (uid, story) => this.db.ref(`users/${uid}/stories/${story}/`);
   chapter = (uid, story, title) =>
-    this.db.ref(`users/${uid}/stories/${story}/${title}`);
+    this.db.ref(`users/${uid}/stories/${story}/${title}/`);
 
   section = uid => this.db.ref(`sections/${uid}`);
   sections = () => this.db.ref("sections");
