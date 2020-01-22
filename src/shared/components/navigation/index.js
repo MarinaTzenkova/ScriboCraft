@@ -5,7 +5,6 @@ import logo from "./logo_transparent.png";
 import { Link } from "react-router-dom";
 import SignOutButton from "src/components/authentication/signout";
 
-
 const Navigation = ({ children, navigationItems }) => {
   return (
     <div>
@@ -18,7 +17,8 @@ const Navigation = ({ children, navigationItems }) => {
                   position: "fixed",
                   top: "0",
                   left: "0",
-                  height: "100%"
+                  height: "100%",
+                  zIndex: "1"
                 }}
                 className="w-24 bg-gray-300"
               >

@@ -16,6 +16,8 @@ import Home from "../home";
 import Navigation from "src/shared/components/navigation";
 import Header from "src/shared/components/header";
 import Characters from "../writing/characters";
+import Account from "../authentication/account"
+
 
 const INITIAL_STATE = {
   navigationItems: [
@@ -80,6 +82,7 @@ class App extends Component {
             <Route exact path={ROUTES.CHAPTERS} component={Chapters} />
             <Route exact path={ROUTES.CHARACTERS} component={Characters} />
             <Route exact path={ROUTES.ADD_SECTION} component={AddSection} />
+            <Route exact path={ROUTES.ACCOUNT} component={Account} />
           </Header>
         </Navigation>
       </Router>
